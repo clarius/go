@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirigiendo...</title>
+    <meta charset="utf-8" />
+    <script>
+        // short > url map
+        const urlMap = {
+            'n': 'https://github.com/clarius/normas/blob/main/'
+        };
+
+        function redirectMapped() {
+            const params = new URLSearchParams(window.location.search);
+            let redirected = false;
+
+            for (const paramKey in urlMap) {
+                if (params.has(paramKey)) {
+                    const pathAndFragment = params.get(paramKey);
+                    const baseUrl = urlMap[paramKey];
+
+                    if (pathAndFragment) {
+                        const targetUrl = `${baseUrl}${pathAndFragment}`;
+                        window.location.replace(targetUrl);
+                        redirected = true;
+                        break;
+                    } else {
+                        // Redirect to base URL if the parameter is empty
+                        console.error(`El parámetro '${paramKey}' no tiene valor.`);
+                        const repoBaseUrl = baseUrl.substring(0, baseUrl.indexOf('/blob/'));
+                        window.location.replace(repoBaseUrl);
+                        redirected = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!redirected) {
+                console.error("No se encontró un parámetro de redirección válido.");
+                window.location.replace("https://github.com/clarius");
+            }
+        }
+
+        window.onload = redirectMapped;
+    </script>
+</head>
+<body>
+    <p>Si no eres redirigido automáticamente, algo salió mal.</p>
+</body>
+</html>
