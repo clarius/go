@@ -11,15 +11,16 @@
 
         function redirectMapped() {
             const params = new URLSearchParams(window.location.search);
+            const hash = window.location.hash;
             let redirected = false;
 
             for (const paramKey in urlMap) {
                 if (params.has(paramKey)) {
-                    const pathAndFragment = params.get(paramKey);
+                    const path = params.get(paramKey);
                     const baseUrl = urlMap[paramKey];
 
-                    if (pathAndFragment) {
-                        const targetUrl = `${baseUrl}${pathAndFragment}`;
+                    if (path) {
+                        const targetUrl = `${baseUrl}${path}${hash}`;
                         window.location.replace(targetUrl);
                         redirected = true;
                         break;
@@ -27,7 +28,7 @@
                         // Redirect to base URL if the parameter is empty
                         console.error(`El parámetro '${paramKey}' no tiene valor.`);
                         const repoBaseUrl = baseUrl.substring(0, baseUrl.indexOf('/blob/'));
-                        window.location.replace(repoBaseUrl);
+                        window.location.replace(`${repoBaseUrl}`);
                         redirected = true;
                         break;
                     }
@@ -36,7 +37,7 @@
 
             if (!redirected) {
                 console.error("No se encontró un parámetro de redirección válido.");
-                window.location.replace("https://github.com/clarius");
+                window.location.replace(`https://github.com/clarius`);
             }
         }
 
