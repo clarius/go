@@ -3,6 +3,37 @@
 <head>
     <title>Redirigiendo...</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for responsiveness -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Stack spinner and text vertically */
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f0f0f0; /* Optional: background color */
+        }
+        .spinner {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 20px; /* Space between spinner and text */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        p {
+            color: #555; /* Slightly darker text */
+        }
+    </style>
     <script>
         // short > url map
         const urlMap = {
@@ -53,6 +84,7 @@
     </script>
 </head>
 <body>
-    <p>Si no eres redirigido automáticamente, algo salió mal.</p>
+    <div class="spinner"></div>
+    <p>Redirigiendo...</p> <!-- Updated text -->
 </body>
 </html>
