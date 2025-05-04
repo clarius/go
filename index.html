@@ -16,10 +16,18 @@
 
             for (const paramKey in urlMap) {
                 if (params.has(paramKey)) {
-                    const path = params.get(paramKey);
+                    let path = params.get(paramKey);
                     const baseUrl = urlMap[paramKey];
 
                     if (path) {
+                        // Check if the path segment after the last '/' contains a '.'
+                        // If not, assume it's a directory or extensionless file and append .md
+                        const parts = path.split('/');
+                        const lastPart = parts[parts.length - 1];
+                        if (lastPart && !lastPart.includes('.')) {
+                            path += '.md';
+                        }
+
                         const targetUrl = `${baseUrl}${path}${hash}`;
                         window.location.replace(targetUrl);
                         redirected = true;
