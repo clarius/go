@@ -51,6 +51,15 @@
                     const baseUrl = urlMap[paramKey];
 
                     if (path) {
+                        // Add conditional prefixing for 'n' key
+                        if (paramKey === 'n') {
+                            if (path.startsWith('DN')) {
+                                path = `decreto/${path}`;
+                            } else if (path.startsWith('LN')) {
+                                path = `ley/${path}`;
+                            }
+                        }
+
                         // Check if the path segment after the last '/' contains a '.'
                         // If not, assume it's a directory or extensionless file and append .md
                         const parts = path.split('/');
